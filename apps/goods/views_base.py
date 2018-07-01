@@ -21,10 +21,15 @@ class GoodsListView(View):
 		# 	json_list.append(json_dict)
 
 		# 2.通过django的model_to_dict进行json转换
+		# ImageFieldFile 等特殊字段无法进行转化
 		# from django.forms.models import model_to_dict
 		# for good in goods:
 		# 	json_dict = model_to_dict(good)
 		# 	json_list.append(json_dict)
+		#
+		# import json
+		# from django.http import HttpResponse
+		# return HttpResponse(json.dumps(json_list), content_type='application/json')
 
 		# 3.通过django的serializers序列化方法进行转化
 		import json
