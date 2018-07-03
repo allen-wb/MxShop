@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
+from rest_framework import filters
 
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -24,11 +25,22 @@ class GoodsPagination(PageNumberPagination):
 
 
 class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+	"""
+	商品列表页,分页,过滤,搜索,排序
+	"""
 	queryset = Goods.objects.all()
 	serializer_class = GoodsSerializer
 	pagination_class = GoodsPagination
-	filter_backends = (DjangoFilterBackend,)
+	filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
 	filter_class = GoodsFilter
+	'''
+	'^' Starts-with search.
+	'=' Exact matches.
+	'@' Full-text search. (Currently only supported Django's MySQL backend.)
+	'$' Regex search
+	'''
+	search_fields = ('^name', 'email')  # drf 搜索功能
+	ordering_fields = ('sold_num', 'add_time')  # drf 排序
 
 
 # class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
