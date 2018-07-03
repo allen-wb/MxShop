@@ -18,9 +18,14 @@ import xadmin
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
 
 # from goods.views_base import GoodsListView
-from goods.views import GoodsListView
+from goods.views import GoodsListViewSet
+
+router = DefaultRouter()
+# 注册商品相关的url
+router.register('goods', GoodsListViewSet)
 
 urlpatterns = [
 	path('xadmin/', xadmin.site.urls),
@@ -28,7 +33,8 @@ urlpatterns = [
 	path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
 
 	# 商品列表页
-	path('goods/', GoodsListView.as_view(), name='goods-list'),
+	# path('goods/', GoodsListView.as_view(), name='goods-list'),
+	path('', include(router.urls)),
 
 	path('docs/', include_docs_urls(title='mx文档')),
 ]

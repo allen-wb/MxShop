@@ -3,7 +3,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
+from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
+
+from rest_framework import viewsets
 
 from .models import Goods
 
@@ -17,10 +20,17 @@ class GoodsPagination(PageNumberPagination):
 	max_page_size = 1000
 
 
-class GoodsListView(generics.ListAPIView):
+class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 	queryset = Goods.objects.all()
 	serializer_class = GoodsSerializer
 	pagination_class = GoodsPagination
+
+
+# class GoodsListView(generics.ListAPIView):
+# 	queryset = Goods.objects.all()
+# 	serializer_class = GoodsSerializer
+# 	pagination_class = GoodsPagination
+
 # 等同于调用下面的APIView
 # class GoodsListView(APIView):
 # 	"""
