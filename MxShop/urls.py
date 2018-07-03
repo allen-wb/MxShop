@@ -25,7 +25,7 @@ from goods.views import GoodsListViewSet
 
 router = DefaultRouter()
 # 注册商品相关的url
-router.register('goods', GoodsListViewSet)
+router.register('goods', GoodsListViewSet, base_name='goods')
 
 urlpatterns = [
 	path('xadmin/', xadmin.site.urls),

@@ -6,9 +6,12 @@ from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.pagination import PageNumberPagination
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 from rest_framework import viewsets
 
 from .models import Goods
+from .filters import GoodsFilter
 
 
 class GoodsPagination(PageNumberPagination):
@@ -24,14 +27,22 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 	queryset = Goods.objects.all()
 	serializer_class = GoodsSerializer
 	pagination_class = GoodsPagination
+	filter_backends = (DjangoFilterBackend,)
+	filter_class = GoodsFilter
 
-	# 会覆盖掉上面的queryset,自定义查询过滤
-	def get_queryset(self):
-		# 从drf的request中获取请求参数
-		price_min = self.request.query_params.get('price_min', 0)
-		if price_min:
-			self.queryset = Goods.objects.filter(shop_price__gt=int(price_min))
-		return self.queryset
+
+# class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+# 	queryset = Goods.objects.all()
+# 	serializer_class = GoodsSerializer
+# 	pagination_class = GoodsPagination
+#
+# 	# 会覆盖掉上面的queryset,自定义查询过滤
+# 	def get_queryset(self):
+# 		# 从drf的request中获取请求参数
+# 		price_min = self.request.query_params.get('price_min', 0)
+# 		if price_min:
+# 			self.queryset = Goods.objects.filter(shop_price__gt=int(price_min))
+# 		return self.queryset
 
 # class GoodsListView(generics.ListAPIView):
 # 	queryset = Goods.objects.all()
