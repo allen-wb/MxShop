@@ -25,6 +25,13 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 	serializer_class = GoodsSerializer
 	pagination_class = GoodsPagination
 
+	# 会覆盖掉上面的queryset,自定义查询过滤
+	def get_queryset(self):
+		# 从drf的request中获取请求参数
+		price_min = self.request.query_params.get('price_min', 0)
+		if price_min:
+			self.queryset = Goods.objects.filter(shop_price__gt=int(price_min))
+		return self.queryset
 
 # class GoodsListView(generics.ListAPIView):
 # 	queryset = Goods.objects.all()
