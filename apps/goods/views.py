@@ -1,4 +1,4 @@
-from goods.serializers import GoodsSerializer
+from goods.serializers import GoodsSerializer, GoodsCategorySerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -11,7 +11,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from rest_framework import viewsets
 
-from .models import Goods
+from .models import Goods, GoodsCategory
 from .filters import GoodsFilter
 
 
@@ -78,3 +78,11 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 # 		serializer.save()
 # 		return Response(serializer.data, status=status.HTTP_201_CREATED)
 # 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+	"""
+	list 商品分类
+	"""
+	queryset = GoodsCategory.objects.filter(category_type=1)
+	serializer_class = GoodsCategorySerializer

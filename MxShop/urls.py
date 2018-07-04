@@ -21,11 +21,13 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 
 # from goods.views_base import GoodsListView
-from goods.views import GoodsListViewSet
+from goods.views import GoodsListViewSet, CategoryViewSet
 
 router = DefaultRouter()
 # 注册商品相关的url
 router.register('goods', GoodsListViewSet, base_name='goods')
+# 注册商品类别的url
+router.register('categorys', CategoryViewSet, base_name='categorys')
 
 urlpatterns = [
 	path('xadmin/', xadmin.site.urls),

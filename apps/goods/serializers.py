@@ -11,7 +11,26 @@ class GoodsSerializer(serializers.Serializer):
 """
 
 
+class GoodsCategorySerializer3(serializers.ModelSerializer):
+	# 通过Model中定义的sub_cat来实现关联的子级数据
+	class Meta:
+		model = GoodsCategory
+		fields = '__all__'
+
+
+class GoodsCategorySerializer2(serializers.ModelSerializer):
+	# 通过Model中定义的sub_cat来实现关联的子级数据
+	sub_cat = GoodsCategorySerializer3(many=True)
+
+	class Meta:
+		model = GoodsCategory
+		fields = '__all__'
+
+
 class GoodsCategorySerializer(serializers.ModelSerializer):
+	# 通过Model中定义的sub_cat来实现关联的子级数据
+	sub_cat = GoodsCategorySerializer2(many=True)
+
 	class Meta:
 		model = GoodsCategory
 		fields = '__all__'
