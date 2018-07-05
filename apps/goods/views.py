@@ -80,9 +80,9 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 # 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 	"""
-	list 商品分类
+	list 商品分类,(继承RetrieveModelMixin时可以根据id获取某一个数据)
 	"""
 	queryset = GoodsCategory.objects.filter(category_type=1)
 	serializer_class = GoodsCategorySerializer
