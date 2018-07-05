@@ -39,7 +39,7 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 	'@' Full-text search. (Currently only supported Django's MySQL backend.)
 	'$' Regex search
 	'''
-	search_fields = ('^name', 'email')  # drf 搜索功能
+	search_fields = ('^name', 'goods_desc')  # drf 搜索功能
 	ordering_fields = ('sold_num', 'add_time', 'shop_price')  # drf 排序
 
 
