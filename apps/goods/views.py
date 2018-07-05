@@ -20,7 +20,7 @@ class GoodsPagination(PageNumberPagination):
 	# page_size的默认信息会被页面传入的值覆盖
 	page_size = 20
 	page_size_query_param = 'page_size'
-	page_query_param = 'p'  # 分页时查询的页码参数
+	page_query_param = 'page'  # 分页时查询的页码参数
 	max_page_size = 1000
 
 
@@ -40,7 +40,7 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 	'$' Regex search
 	'''
 	search_fields = ('^name', 'email')  # drf 搜索功能
-	ordering_fields = ('sold_num', 'add_time')  # drf 排序
+	ordering_fields = ('sold_num', 'add_time', 'shop_price')  # drf 排序
 
 
 # class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
