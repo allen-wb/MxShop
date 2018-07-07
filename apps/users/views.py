@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 from random import choice
 
-from .serializers import SmsSerializer
+from .serializers import SmsSerializer, UserRegSerializer
 from .models import VerifyCode
 from utils.sendMsg import SendMsg
 
@@ -60,3 +60,11 @@ class SmsCodeViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 		if res:
 			verify_code = VerifyCode(code=code, mobile=mobile)
 			verify_code.save()
+
+
+class UserRegViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
+	"""
+	用户
+	"""
+	serializer_class = UserRegSerializer
+	queryset = User.objects.all()

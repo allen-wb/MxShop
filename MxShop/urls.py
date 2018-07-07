@@ -24,7 +24,7 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 # from goods.views_base import GoodsListView
 from goods.views import GoodsListViewSet, CategoryViewSet
-from users.views import SmsCodeViewSet
+from users.views import SmsCodeViewSet, UserRegViewset
 
 router = DefaultRouter()
 # 注册商品相关的url
@@ -33,6 +33,8 @@ router.register('goods', GoodsListViewSet, base_name='goods')
 router.register('categorys', CategoryViewSet, base_name='categorys')
 # 手机验证码code
 router.register('codes', SmsCodeViewSet, base_name='codes')
+
+router.register('users', UserRegViewset, base_name='users')
 
 urlpatterns = [
 	path('xadmin/', xadmin.site.urls),
