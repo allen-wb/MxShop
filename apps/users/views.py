@@ -7,6 +7,8 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 
+from rest_framework_jwt.serializers import jwt_encode_handler, jwt_payload_handler
+
 from random import choice
 
 from .serializers import SmsSerializer, UserRegSerializer
@@ -20,6 +22,7 @@ class CustomBackend(ModelBackend):
 	"""
 	自定义用户验证
 	"""
+
 	def authenticate(self, request, username=None, password=None, **kwargs):
 		try:
 			user = User.objects.get(Q(username=username) | Q(mobile=username))
@@ -68,3 +71,21 @@ class UserRegViewset(mixins.CreateModelMixin, viewsets.GenericViewSet):
 	"""
 	serializer_class = UserRegSerializer
 	queryset = User.objects.all()
+
+	'''
+	注册完自动完成登录功能,需重写create和生成jwt的token
+	'''
+	def create(self, request, *args, **kwargs):
+		serializer = self.get_serializer(data=request.data)
+		serializer.is_valid(raise_exception=True)
+		user = self.perform_create(serializer)
+		# 生成jwt的token并返回
+		res_dict = serializer.data
+		payload = jwt_payload_handler(user)
+		res_dict['token'] = jwt_encode_handler(payload)
+		res_dict['name'] = user.name if user.name else user.username
+		headers = self.get_success_headers(serializer.data)
+		return Response(res_dict, status=status.HTTP_201_CREATED, headers=headers)
+
+	def perform_create(self, serializer):
+		return serializer.save()
