@@ -18,6 +18,7 @@ django-formtools = "*"
 "httplib2" = "*"
 django-import-export = "*"
 pillow = "*"
+djangorestframework-jwt = "*"
 
 [dev-packages]
 
