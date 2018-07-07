@@ -11,6 +11,7 @@ from random import choice
 
 from .serializers import SmsSerializer
 from .models import VerifyCode
+from utils.sendMsg import SendMsg
 
 User = get_user_model()
 
@@ -53,7 +54,9 @@ class SmsCodeViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 		# 获取手机号码
 		mobile = serializer.validated_data['mobile']
 		# 发送短信
-		pass
-		if True:
-			verify_code = VerifyCode(code='', mobile=mobile)
+		code = self.generate_code()
+		send_msg = SendMsg(api_key='')
+		res = send_msg.seng_msg(code=code, mobile=mobile)
+		if res:
+			verify_code = VerifyCode(code=code, mobile=mobile)
 			verify_code.save()
