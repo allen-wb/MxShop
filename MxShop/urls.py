@@ -24,12 +24,15 @@ from rest_framework_jwt.views import obtain_jwt_token
 
 # from goods.views_base import GoodsListView
 from goods.views import GoodsListViewSet, CategoryViewSet
+from users.views import SmsCodeViewSet
 
 router = DefaultRouter()
 # 注册商品相关的url
 router.register('goods', GoodsListViewSet, base_name='goods')
 # 注册商品类别的url
 router.register('categorys', CategoryViewSet, base_name='categorys')
+# 手机验证码code
+router.register('codes', SmsCodeViewSet, base_name='codes')
 
 urlpatterns = [
 	path('xadmin/', xadmin.site.urls),
