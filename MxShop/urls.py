@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 
 # from goods.views_base import GoodsListView
 from goods.views import GoodsListViewSet, CategoryViewSet
@@ -39,6 +40,8 @@ urlpatterns = [
 	path('', include(router.urls)),
 
 	path('docs/', include_docs_urls(title='mx文档')),
+	# 根据传入的user生成token,会保存到数据库中
+	path('api-token-auth/', views.obtain_auth_token)
 ]
 # django2.0 配置图片访问
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

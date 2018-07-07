@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 	'rest_framework',
 	'django_filters',
 	'corsheaders',
+	'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -154,4 +155,11 @@ REST_FRAMEWORK = {
 	# 配置分页信息
 	'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
 	'PAGE_SIZE': 10,
+	# 配置session信息
+	'DEFAULT_AUTHENTICATION_CLASSES': (
+		'rest_framework.authentication.BasicAuthentication',
+		'rest_framework.authentication.SessionAuthentication',
+		# 'rest_framework.authentication.TokenAuthentication',  # 配置全局的token,token错误则接口不通
+	)
 }
+

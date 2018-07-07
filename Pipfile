@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+mysqlclient = {path = "F:/\u8f6f\u4ef6\u5b89\u88c5\u5305/py_packages/mysqlclient-1.3.13-cp36-cp36m-win_amd64.whl"}
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+coreapi = "*"
+django-crispy-forms = "*"
+django-guardian = "*"
+future = "*"
+django-cors-headers = "*"
+django-formtools = "*"
+"httplib2" = "*"
+django-import-export = "*"
+pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
