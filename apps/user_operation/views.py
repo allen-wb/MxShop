@@ -19,6 +19,7 @@ class UserFavViewset(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Dest
 	permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
 	serializer_class = UserFavSerializer
 	authentication_classes = (JSONWebTokenAuthentication, SessionAuthentication,)  # 局部接口配置token验证,与settings中的全局相对应
+	lookup_field = 'goods_id'
 
 	def get_queryset(self):
 		return UserFav.objects.filter(self.request.user)

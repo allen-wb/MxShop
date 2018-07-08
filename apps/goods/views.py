@@ -42,7 +42,7 @@ class GoodsListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewset
 	'''
 	search_fields = ('^name', 'goods_desc')  # drf 搜索功能
 	ordering_fields = ('sold_num', 'add_time', 'shop_price')  # drf 排序
-	# authentication_classes = (TokenAuthentication,)  # 局部接口配置token验证,与settings中的全局相对应
+	authentication_classes = (TokenAuthentication,)  # 局部接口配置token验证,与settings中的全局相对应
 
 
 # class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):

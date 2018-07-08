@@ -161,7 +161,7 @@ REST_FRAMEWORK = {
 	'PAGE_SIZE': 10,
 	# 配置session信息
 	'DEFAULT_AUTHENTICATION_CLASSES': (
-		'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+		# 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
 		'rest_framework.authentication.BasicAuthentication',
 		'rest_framework.authentication.SessionAuthentication',
 		# 'rest_framework.authentication.TokenAuthentication',  # 配置全局的token,token错误则接口不通
