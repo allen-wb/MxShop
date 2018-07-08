@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from.models import Goods, GoodsCategory
+from.models import Goods, GoodsCategory, GoodsImage
 
 """
 class GoodsSerializer(serializers.Serializer):
@@ -36,9 +36,16 @@ class GoodsCategorySerializer(serializers.ModelSerializer):
 		fields = '__all__'
 
 
+class GoodsImageSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = GoodsImage
+		fields = ('image',)
+
+
 class GoodsSerializer(serializers.ModelSerializer):
 	# 关联字段对象的序列化
 	category = GoodsCategorySerializer()
+	images = GoodsImageSerializer(many=True)
 
 	class Meta:
 		model = Goods
